@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.gov.sp.cps.springlab420262.entity.Disciplina;
@@ -14,11 +15,18 @@ public class DisciplinaServiceIpl implements DisciplinaService {
 
     private final DisciplinaRepository repo;
 
-    public DisciplinaServiceIpl(DisciplinaRepository repo) {
+    private final CursoService cursoService;
+
+    private final AlunoService alunoService;
+
+    public DisciplinaServiceIpl(DisciplinaRepository repo, CursoService cursoService, AlunoService alunoService) {
         this.repo = repo;
+        this.cursoService = cursoService;
+        this.alunoService = alunoService;
     }
 
     @Override
+    @Transactional
     public Disciplina cadastrar(Disciplina disciplina) {
         if (disciplina == null || 
             disciplina.getNome() == null || 
@@ -29,7 +37,7 @@ public class DisciplinaServiceIpl implements DisciplinaService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A disciplina não pode ser nula.");
         }
         // Implementação do método cadastrar
-        return null;
+        return repo.save(disciplina);
     }
 
     @Override
