@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.gov.sp.cps.springlab420262.entity.Aluno;
@@ -20,21 +19,21 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    @Transactional
     public Aluno cadastrar(Aluno aluno) {
-        if (aluno == null || 
-            aluno.getNome() == null || 
-            aluno.getNome().isBlank() ||
-            aluno.getRa() == null
-        ) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O aluno não pode ser nulo.");
+        if(aluno == null ||
+              aluno.getId() != null ||
+              aluno.getNome() == null || 
+              aluno.getNome().isBlank() ||
+              aluno.getRa() == null || 
+              aluno.getRa() <= 0L) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados do aluno inválidos.");
         }
         return repo.save(aluno);
     }
 
     @Override
     public Aluno buscarPorId(Long id) {
-        if (id == null) {
+        if(id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O ID não pode ser nulo.");
         }
         return repo.findById(id).orElseThrow(
@@ -47,6 +46,4 @@ public class AlunoServiceImpl implements AlunoService {
         return repo.findAll();
     }
     
-    
-
 }

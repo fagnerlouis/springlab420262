@@ -101,6 +101,14 @@ public class Disciplina {
         this.curso = curso;
     }
 
+    public Set<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(Set<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+
 
 
     
