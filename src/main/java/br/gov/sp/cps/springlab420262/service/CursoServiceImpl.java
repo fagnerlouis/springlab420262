@@ -18,35 +18,34 @@ public class CursoServiceImpl implements CursoService {
     public CursoServiceImpl(CursoRepository repo) {
         this.repo = repo;
     }
-    
+
     @Override
     public Curso cadastrar(Curso curso) {
-        if (curso == null || 
-            curso.getNome() == null || 
-            curso.getNome().isBlank() ||
-            curso.getSigla() == null ||
-            curso.getSigla().isBlank()
-        ) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O curso não pode ser nulo.");
+        if(curso == null ||
+              curso.getId() != null ||
+              curso.getSigla() == null || 
+              curso.getSigla().isBlank() ||
+              curso.getNome() == null || 
+              curso.getNome().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados do curso inválidos.");
         }
         return repo.save(curso);
     }
 
     @Override
     public Curso buscarPorId(Long id) {
-        if (id == null) {
+        if(id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O ID não pode ser nulo.");
         }
-        Optional<Curso> curso = repo.findById(id);
-        if (curso.isEmpty()) {
+        Optional<Curso> cursoOp = repo.findById(id);
+        if(cursoOp.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não encontrado.");
         }
-        return curso.get();
+        return cursoOp.get();
     }
 
     @Override
     public List<Curso> buscarTodos() {
-        // Implementação do método de busca de todos os cursos
         return repo.findAll();
     }
     

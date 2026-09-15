@@ -20,14 +20,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "dis_disciplina")
 public class Disciplina {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dis_id")
-    @JsonView({View.DisciplinaView.class})
+    @JsonView({View.DisciplinaView.class, View.CursoView.class})
     private Long id;
 
     @Column(name = "dis_codigo")
-    @JsonView({View.DisciplinaView.class})
+    @JsonView({View.DisciplinaView.class, View.CursoView.class})
     private String codigo;
 
     @Column(name = "dis_nome")
@@ -108,8 +109,6 @@ public class Disciplina {
     public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
-
-
 
     
 }

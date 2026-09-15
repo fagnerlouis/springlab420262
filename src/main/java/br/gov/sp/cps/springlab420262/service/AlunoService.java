@@ -6,10 +6,10 @@ import br.gov.sp.cps.springlab420262.entity.Aluno;
 
 public interface AlunoService {
     
-
     public Aluno cadastrar(Aluno aluno);
 
     public Aluno buscarPorId(Long id);
 
     public List<Aluno> buscarTodos();
+    
 }

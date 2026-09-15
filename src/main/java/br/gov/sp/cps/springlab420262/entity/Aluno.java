@@ -36,7 +36,7 @@ public class Aluno {
     private LocalDate dataNascimento;
 
     @ManyToMany(mappedBy = "alunos")
-    public Set<Disciplina> disciplinas;
+    private Set<Disciplina> disciplinas;
 
     public Aluno(Long ra, String nome, LocalDate dataNascimento) {
         this.ra = ra;
