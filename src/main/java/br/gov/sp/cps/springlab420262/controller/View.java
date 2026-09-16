@@ -7,5 +7,7 @@ public class View {
     public static class CursoView {};
 
     public static class DisciplinaView {};
+
+    public static class TrabalhoView {};
     
 }
